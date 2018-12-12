@@ -34,6 +34,15 @@ class Shares extends Controller {
         $this->returnView($view_model->add(), true);
     }
 
+    protected function uploadImage()
+    {
+        if (!isset($_SESSION['is_logged_in'])) {
+            header('Location: '.ROOT_URL.'shares');
+        }
+        $view_model = new ShareModel();
+        $this->returnView($view_model->uploadImage(), true);
+    }
+
     protected function delete()
     {
         if (!isset($_SESSION['is_logged_in'])) {
