@@ -34,10 +34,9 @@ class ShareModel extends Model
     	$post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
     	if ($post['submit']) {
-    		$this->query('INSERT INTO shares (pet_name, description, thumb, user_id, age, genre, encounter_loss_date, place, kind_pet, telephone, reward, is_loss) VALUES(:pet_name, :description, :thumb, :user_id, :age, :genre, :encounter_loss_date, :place, :kind_pet, :telephone, :reward, :is_loss)');
+    		$this->query('INSERT INTO shares (pet_name, description, user_id, age, genre, encounter_loss_date, place, kind_pet, telephone, reward, is_loss) VALUES(:pet_name, :description, :user_id, :age, :genre, :encounter_loss_date, :place, :kind_pet, :telephone, :reward, :is_loss)');
     		$this->bind(':pet_name', $post['pet_name']);
     		$this->bind(':description', $post['description']);
-    		$this->bind(':thumb', $post['thumb']);
             $this->bind(':age', $post['age']);
             $this->bind(':genre', $post['genre']);
             $this->bind(':encounter_loss_date', $post['encounter_loss_date']);
@@ -53,6 +52,37 @@ class ShareModel extends Model
     		}
     	}
     	return;
+    }
+
+    public function uploadImage()
+    {
+        if (isset($_POST['submit'])) {
+            $file = $_FILES['file'];
+
+            $file_name = $file['name'];
+            $file_tmpname = $file['tmp_name'];
+            $file_size = $file['size'];
+            $file_error = $file['error'];
+            $file_type = $file['type'];
+
+            $file_ext = explode('.', $file_name);
+            $file_actual_ext = strtolower(end($file_ext));
+
+            $allowed = array('jpg', 'jpeg', 'png', 'gif');
+
+            if (in_array($file_actual_ext, $allowed)) {
+                if ($file_error === 0) {
+                    if ($file_size < 500000) {
+                        $file_name_new = uniqid('', true).".".$file_actual_ext;
+                        $file_destination = 'assets/img/'.$file_name_new;
+                        move_uploaded_file($file_tmpname, $file_destination);
+                        $this->query('UPDATE shares SET thumb="'.$file_destination.'" WHERE id = '.$_GET['id']);
+                        $this->execute();
+                        header('Location: '.ROOT_URL.'shares');
+                    }
+                }
+            }
+        }
     }
 
     public function delete()

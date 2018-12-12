@@ -60,10 +60,6 @@
 				<label>Teléfono</label>
 				<input type="text" name="telephone" class="form-control">
 			</div>
-			<div class="form-group">
-				<label for="thumb">Carga una foto</label>
-				<input type="file" name="thumb" class="form-control-file" id="thumb">
-			</div>
 			<div class="text-right">
 				<input class="btn btn-primary" type="submit" name="submit" value="Enviar">
 				<a class="btn btn-danger" href="<?php echo ROOT_PATH; ?>shares">Cancelar</a>
