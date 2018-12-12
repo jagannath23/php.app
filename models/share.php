@@ -57,6 +57,9 @@ class ShareModel extends Model
     public function uploadImage()
     {
         if (isset($_POST['submit'])) {
+            /* Variable de subida de ficheros HTTP
+            * $_FILES es un array asociativo de elementos subidos al script en curso a travès del mètodo POST.
+            */
             $file = $_FILES['file'];
 
             $file_name = $file['name'];

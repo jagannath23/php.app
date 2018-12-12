@@ -12,7 +12,8 @@
 					<?php else : ?>
 						<small>Este anuncio aun no ha sido aprovado por el administrador</small>
 					<?php endif; ?>
-					<?php if ($_SESSION['user_data']['admin']) : ?>
+					<?php if (isset($_SESSION['user_data']))
+						if ($_SESSION['user_data']['admin']) : ?>
 						<div class="row">
 							<div class="col">
 								<form method="POST" action="<?php echo ROOT_PATH.'shares/approve/'.$item['id'];?>">

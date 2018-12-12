@@ -1,4 +1,7 @@
 <?php
+/* Inicia una nueva sesiòn o reanuda la exisente
+* se ejecuta en cada una de las vistas
+*/
 session_start();
 
 require('config.php');
