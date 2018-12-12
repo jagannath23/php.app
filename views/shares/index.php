@@ -9,6 +9,8 @@
 					<p class="card-text"><?php echo $item['description']; ?></p><br>
 					<?php if ($item['is_approved'] or $_SESSION['user_data']['admin']) : ?>
 						<a class="btn btn-info" href="<?php echo ROOT_PATH . 'shares/show/' . $item['id']; ?>">Ver más</a><br><br>
+					<?php else : ?>
+						<small>Este anuncio aun no ha sido aprovado por el administrador</small>
 					<?php endif; ?>
 					<?php if ($_SESSION['user_data']['admin']) : ?>
 						<div class="row">
